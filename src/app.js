@@ -14,13 +14,37 @@ let day=days[date.getDay()];
 return `${day} ${hours}:${minutes}`;
 }
 
-function formatDay(timestamp) {
-  let date = new Date(timestamp * 1000);
-  let day = date.getDay();
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+function displayForecast() {
+    let forecastElement=document.querySelector("#forecast");
 
-  return days[day];
+
+let forecastHTML=`<div class="row">`;
+let days= ["Thurs", "Fri", "Sat", "Sun"];
+days.forEach(function (day) {
+forecastHTML=
+forecastHTML + `
+    
+            <div class="col-2">
+                <div class="weather-forecast-date">${day}</div>
+                <img 
+                 src="http://openweathermap.org/img/wn/01d@2x.png"
+                alt="" 
+                width="42"
+                />
+                <div class="weather-forecast-temperatures">
+                    <span class="weather-forecase-temperature-max">
+                        18° </span>
+                        <span class="weather-forecase-temperature-min">
+                      12° </span>
+                </div>
+        </div>
+        `;
+    });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+  console.log(forecastHTML);
 }
+
 
 function displayTemperature(response) {
     let temperatureElement=document.querySelector("#temperature");
@@ -78,6 +102,7 @@ function displayCelsiusTemperature(event) {
 
 let celsiusTemperature=null;
 
+
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
 
@@ -88,3 +113,4 @@ let celsiusLink=document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("New York");
+displayForecast();
